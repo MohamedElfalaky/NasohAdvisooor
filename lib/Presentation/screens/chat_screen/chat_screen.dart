@@ -667,10 +667,10 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         SizedBox(
           height: 40,
-          width: 210,
+          width: 205,
           child: SvgPicture.asset(voiceShape, fit: BoxFit.fill),
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 5),
         CircleAvatar(
             backgroundColor: Constants.primaryAppColor,
             child: SvgPicture.asset(voice)),

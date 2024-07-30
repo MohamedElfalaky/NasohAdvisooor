@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nasooh/Data/cubit/authentication/nationality_cubit/nationality_cubit.dart';
 import 'package:nasooh/Data/cubit/send_chat_cubit/send_chat_cubit.dart';
 import 'package:nasooh/Data/cubit/show_advice_cubit/show_advice_cubit/show_advice_cubit.dart';
 
@@ -43,6 +44,7 @@ List<BlocProvider> providers = [
   BlocProvider<CheckCodeCubit>(create: (context) => CheckCodeCubit()),
   BlocProvider<CountryCubit>(create: (context) => CountryCubit()),
   BlocProvider<CityCubit>(create: (context) => CityCubit()),
+  BlocProvider<NationalityCubit>(create: (context) => NationalityCubit()),
   BlocProvider<AboutCubit>(create: (context) => AboutCubit()),
   BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
   BlocProvider<ProfileCubit>(

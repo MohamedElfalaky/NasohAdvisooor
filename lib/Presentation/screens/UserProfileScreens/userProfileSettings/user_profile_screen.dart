@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:nasooh/Presentation/screens/AuthenticationScreens/LoginScreen/check_mob_screen.dart';
 import 'package:nasooh/app/utils/exports.dart';
@@ -28,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 16),
         child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const NeverScrollableScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -93,34 +95,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       logoutIcon,
                     ),
                   ),
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 80, bottom: 10),
-                    width: MediaQuery.of(context).size.width * 0.42,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Constants.primaryAppColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: TextButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.share,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          "share_app".tr,
-                          style: Constants.subtitleFont1.copyWith(
-                            color: Colors.white,
+                Platform.isAndroid
+                    ? Center(
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 80, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.42,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Constants.primaryAppColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share,
+                                color: Colors.white,
+                              ),
+                              label: Text(
+                                "share_app".tr,
+                                style: Constants.subtitleFont1.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
+                      )
+                    : SizedBox(
+                        height: 80,
                       ),
-                    ),
-                  ),
-                ),
                 Center(
                   child: Text(
-                      "if you are specialist and want to register as adviser download advisers app".tr,
+                      "if you are specialist and want to register as adviser download advisers app"
+                          .tr,
                       style: Constants.subtitleRegularFontHint.copyWith(
                         color: Colors.black,
                       )),
@@ -141,21 +148,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 35,
                       ),
                     ),
-                    const SizedBox(width: 20),
-                    GestureDetector(
-                      onTap: () {
-                        launchUrl(Uri.parse(
-                            'https://play.google.com/store/apps/details?id=com.lundev.nasooh.NASE7'));
-                      },
-                      child: Image.asset(
-                        googlePlayIcon,
-                        fit: BoxFit.fill,
-                        width: 35,
-                        height: 35,
+                    if (!Platform.isIOS) ...[
+                      const SizedBox(width: 20),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse(
+                              'https://play.google.com/store/apps/details?id=com.lun.nasooh.NASE7'));
+                        },
+                        child: Image.asset(
+                          googlePlayIcon,
+                          fit: BoxFit.fill,
+                          width: 35,
+                          height: 35,
+                        ),
                       ),
-                    ),
+                    ]
                   ],
-                )
+                ),
+                const SizedBox(height: 15),
               ],
             )),
       ),

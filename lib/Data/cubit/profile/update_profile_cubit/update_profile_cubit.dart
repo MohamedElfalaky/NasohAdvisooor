@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../Presentation/screens/Home/home.dart';
+import '../../../../app/utils/my_application.dart';
 import '../../../repositories/profile_repos/update_profile_repo.dart';
 import 'update_profile_state.dart';
 
@@ -43,7 +45,8 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
           .then((value) {
         if (value != null) {
           emit(UpdateProfileLoaded(value));
-          Navigator.pop(context!);
+          MyApplication.navigateToReplaceAllPrevious(
+              context!, const HomeLayout(currentIndex: 2));
         } else {
           emit(UpdateProfileError());
         }

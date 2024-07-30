@@ -143,7 +143,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     padding: EdgeInsets.only(bottom: 150),
                     child: Center(
                         child: Text(
-                      'لا يوجد ناصحين بهذا القسم',
+                      'لا يوجد ناصحين بهذا الاسم',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,

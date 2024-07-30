@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:nasooh/Presentation/screens/TermsConditionsScreen/terms_conditions_screen.dart';
 import 'package:nasooh/Presentation/widgets/my_button.dart';
 // import 'package:nasooh/app/Style/icons.dart';
 
@@ -90,8 +92,7 @@ class _CheckMobScreenState extends State<CheckMobScreen>
                                   end: const Offset(0, 0.1))
                               .animate(_animationController),
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 24, top: 44),
+                            padding: const EdgeInsets.only(bottom: 24, top: 44),
                             child: Center(
                               child: SvgPicture.asset(
                                 "assets/images/SVGs/soNew.svg",
@@ -148,25 +149,47 @@ class _CheckMobScreenState extends State<CheckMobScreen>
                             ),
                           ),
                         ),
-                        CheckboxMenuButton(
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                    EdgeInsets.zero)),
-                            value: termsVal,
-                            onChanged: (value) {
-                              setState(() {
-                                termsVal = !termsVal;
-                              });
-                            },
-                            child: const Text(
-                              "أوافق علي جميع الشروط و الأحكام",
-                              style: Constants.secondaryTitleRegularFont,
-                            )),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: termsVal,
+                              onChanged: (value) {
+                                setState(() {
+                                  termsVal = !termsVal;
+                                });
+                              },
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                MyApplication.navigateTo(context, TermsConditionsScreen());
+                              },
+                              child: Text(
+                                "أوافق علي جميع الشروط و الأحكام",
+                                style: Constants.secondaryTitleRegularFont,
+                              ),
+                            )
+                          ],
+                        ),
+
+                        // CheckboxMenuButton(
+                        //     style: ButtonStyle(
+                        //         padding: MaterialStateProperty.all(
+                        //             EdgeInsets.zero)),
+                        //     value: termsVal,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         termsVal = !termsVal;
+                        //       });
+                        //     },
+                        //     child: const Text(
+                        //       "أوافق علي جميع الشروط و الأحكام",
+                        //       style: Constants.secondaryTitleRegularFont,
+                        //     )),
                         const SizedBox(
                           height: 24,
                         ),
                         state is MobLoading
-                            ?   const CustomLoadingButton()
+                            ? const CustomLoadingButton()
                             : FadeTransition(
                                 opacity: _fadeController,
                                 child: SizedBox(
@@ -182,11 +205,8 @@ class _CheckMobScreenState extends State<CheckMobScreen>
                                                 "فضلا وافق علي الشروط و الأحكام");
                                       } else if (_formKey.currentState!
                                           .validate()) {
-                                        context
-                                            .read<MobCubit>()
-                                            .checkMobMethod(
-                                                context: context,
-                                                phone: sendPhone);
+                                        context.read<MobCubit>().checkMobMethod(
+                                            context: context, phone: sendPhone);
                                       }
                                     },
                                   ),

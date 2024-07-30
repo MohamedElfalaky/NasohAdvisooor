@@ -152,6 +152,34 @@ class _ConfirmAdviseScreenState extends State<ConfirmAdviseScreen> {
                     child: Text("How Much can you afford for advice".tr,
                         style: Constants.secondaryTitleRegularFont),
                   ),
+                  // TextFormField(
+                  //   maxLength: 4,
+                  //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  //   validator: (value) {
+                  //     if (value!.isEmpty) {
+                  //       return "Price Needed".tr;
+                  //     }
+                  //     return null;
+                  //   },
+                  //   controller: priceController,
+                  //   keyboardType: TextInputType.number,
+                  //   decoration: Constants.setTextInputDecoration(
+                  //       prefixIcon: const MyPrefixWidget(),
+                  //       isSuffix: true,
+                  //       hintText: "0.00",
+                  //       suffixIcon: const Column(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Padding(
+                  //             padding: EdgeInsets.symmetric(horizontal: 8),
+                  //             child: Text(
+                  //               "ريال سعودي",
+                  //               style: Constants.secondaryTitleRegularFont,
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
                   TextFormField(
                     maxLength: 4,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -159,26 +187,35 @@ class _ConfirmAdviseScreenState extends State<ConfirmAdviseScreen> {
                       if (value!.isEmpty) {
                         return "Price Needed".tr;
                       }
+                      final price = double.tryParse(value);
+                      if (price == null || price <= 1) {
+                        return "الرجاء ادخال رقم صحيح";
+                      }
                       return null;
                     },
                     controller: priceController,
                     keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(
+                          r'^\d*\.?\d*')), // Allow only digits and decimal point
+                    ],
                     decoration: Constants.setTextInputDecoration(
-                        prefixIcon: const MyPrefixWidget(),
-                        isSuffix: true,
-                        hintText: "0.00",
-                        suffixIcon: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                "ريال سعودي",
-                                style: Constants.secondaryTitleRegularFont,
-                              ),
+                      prefixIcon: const MyPrefixWidget(),
+                      isSuffix: true,
+                      hintText: "0.00",
+                      suffixIcon: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              "ريال سعودي",
+                              style: Constants.secondaryTitleRegularFont,
                             ),
-                          ],
-                        )),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15),
@@ -294,7 +331,8 @@ class _ConfirmAdviseScreenState extends State<ConfirmAdviseScreen> {
                                 const Spacer(),
                                 Flexible(
                                     flex: 3,
-                                    child: Text(pickedFile!.path.replaceRange(0, 56, ""))),
+                                    child: Text(pickedFile!.path
+                                        .replaceRange(0, 56, ""))),
                                 const SizedBox(
                                   width: 10,
                                 ),

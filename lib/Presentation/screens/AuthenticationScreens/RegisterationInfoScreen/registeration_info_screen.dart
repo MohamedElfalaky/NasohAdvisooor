@@ -12,6 +12,7 @@ import 'package:nasooh/Presentation/widgets/my_button.dart';
 
 import '../../../../Data/cubit/authentication/country_cubit/country_cubit.dart';
 import '../../../../Data/cubit/authentication/country_cubit/country_state.dart';
+import '../../../../Data/cubit/authentication/nationality_cubit/nationality_cubit.dart';
 import '../../../../Data/cubit/authentication/options_cubit/options_cubit.dart';
 import '../../../../Data/cubit/authentication/options_cubit/options_state.dart';
 import '../../../../Data/cubit/authentication/register_cubit/register_cubit.dart';
@@ -60,13 +61,13 @@ class _RegistrationInfoScreenState extends State<RegistrationInfoScreen> {
 
   String? knowUsId;
 
-
   @override
   void initState() {
     regImage = null;
     _nameController.text = "";
     _emailController.text = "";
     context.read<CountryCubit>().getCountries();
+    context.read<NationalityCubit>().getNationality();
     context.read<OptionsCubit>().getOptions();
     super.initState();
   }
@@ -263,21 +264,22 @@ class _RegistrationInfoScreenState extends State<RegistrationInfoScreen> {
                                 controller: _emailController,
                               ),
                               const TitleTxt(
-                                txt: "البرومو كود - كود الدعوة",
+                                txt: "كود الدعوة",
                               ),
                               InputTextField(
                                 keyboardType: TextInputType.emailAddress,
                                 hintTxt: "برجاء إدخال كود الدعوة إن وٌجد",
-                                imageTxt:
-                                    "assets/images/SVGs/advisor_icon.svg",
+                                imageTxt: "assets/images/SVGs/advisor_icon.svg",
                                 controller: promoCode,
                               ),
-
-                              BlocBuilder<OptionsCubit, OptionsState>(builder: (context, state) {
+                              BlocBuilder<OptionsCubit, OptionsState>(
+                                  builder: (context, state) {
                                 if (state is OptionsLoading) {
                                   return const SizedBox(
                                       width: double.infinity,
-                                      child: Center(child: CircularProgressIndicator.adaptive()));
+                                      child: Center(
+                                          child: CircularProgressIndicator
+                                              .adaptive()));
                                 } else if (state is OptionsLoaded) {
                                   // print('nationality loaded');
                                   return Column(
@@ -287,7 +289,8 @@ class _RegistrationInfoScreenState extends State<RegistrationInfoScreen> {
                                         txt: "كيف عرفت التطبيق".tr,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 10, bottom: 24),
+                                        padding: const EdgeInsets.only(
+                                            top: 10, bottom: 24),
                                         child: CustomDropDown(
                                             hintData: "كيف عرفتنا",
                                             value: knowUsId,
@@ -296,7 +299,8 @@ class _RegistrationInfoScreenState extends State<RegistrationInfoScreen> {
                                             },
                                             items: state.response!.data!
                                                 .map((e) => DropdownMenuItem(
-                                                value: e.id.toString(), child: Text(e.name!)))
+                                                    value: e.id.toString(),
+                                                    child: Text(e.name!)))
                                                 .toList(),
                                             prefixIcon: SvgPicture.asset(
                                               "assets/images/SVGs/country.svg",
@@ -308,7 +312,6 @@ class _RegistrationInfoScreenState extends State<RegistrationInfoScreen> {
                                 }
                                 return const Center(child: SizedBox.shrink());
                               }),
-
                               Container(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 16),
@@ -366,7 +369,7 @@ class _RegistrationInfoScreenState extends State<RegistrationInfoScreen> {
                                                 .registerMethod(
                                                   context: context,
                                                   mobile: sendPhone,
-                                                  knowUsId:knowUsId ?? "",
+                                                  knowUsId: knowUsId ?? "",
                                                   promoCode: promoCode.text,
                                                   avatar: base64Image ?? "",
                                                   countryId: inputCountry ?? "",

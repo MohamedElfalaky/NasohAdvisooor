@@ -9,16 +9,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nasooh/Data/cubit/profile/profile_cubit/profile_cubit.dart';
+import 'package:nasooh/Data/models/nationality_model.dart';
 import 'package:nasooh/app/utils/shared_preference.dart';
 
 import '../../../../Data/cubit/authentication/city_cubit/city_cubit.dart';
 import '../../../../Data/cubit/authentication/city_cubit/city_state.dart';
 import '../../../../Data/cubit/authentication/country_cubit/country_cubit.dart';
 import '../../../../Data/cubit/authentication/country_cubit/country_state.dart';
+import '../../../../Data/cubit/authentication/nationality_cubit/nationality_cubit.dart';
+import '../../../../Data/cubit/authentication/nationality_cubit/nationality_state.dart';
 import '../../../../Data/cubit/profile/profile_cubit/profile_state.dart';
 import '../../../../Data/cubit/profile/update_profile_cubit/update_profile_cubit.dart';
 import '../../../../Data/cubit/profile/update_profile_cubit/update_profile_state.dart';
-import '../../../../Data/models/countries_and_nationalities_model.dart';
+import '../../../../Data/models/country_model.dart';
 // import '../../../../app/Style/icons.dart';
 // import '../../../../app/Style/sizes.dart';
 import '../../../../app/constants.dart';
@@ -82,6 +85,9 @@ class _UserProfileEditState extends State<UserProfileEdit>
     if (mounted) {
       await context.read<CountryCubit>().getCountries();
     }
+    if (mounted) {
+      await context.read<NationalityCubit>().getNationality();
+    }
 
     late ProfileCubit profileCubit;
     if (mounted) {
@@ -95,7 +101,8 @@ class _UserProfileEditState extends State<UserProfileEdit>
     genderValue = profileCubit.profileModel?.data?.gender ?? "";
 
     if (profileCubit.profileModel?.data?.nationalityId != null) {
-      nationalityId = profileCubit.profileModel!.data!.nationalityId!.id!.toString();
+      nationalityId =
+          profileCubit.profileModel!.data!.nationalityId!.id!.toString();
     }
     if (profileCubit.profileModel?.data?.countryId != null && mounted) {
       countryId = profileCubit.profileModel!.data!.countryId!.id!.toString();
@@ -133,29 +140,27 @@ class _UserProfileEditState extends State<UserProfileEdit>
           child: Back(header: "Update Profile"),
         ),
       ),
-      bottomNavigationBar:
-          BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
-              builder: (context, state) => state is UpdateProfileLoading
-                  ? const Center(child: CircularProgressIndicator.adaptive())
-                  : buildSaveButton(
-                      label: "save",
-                      onPressed: () {
-                        context.read<UpdateProfileCubit>().updateMethod(
-                              context: context,
-                              fullName: _nameController.text,
-                              nationalityName: nationalityName,
-                              countryName: countryName,
-                              cityName: cityName,
-                              nationalityId: nationalityId ?? "1",
-                              email: _emailController.text,
-                              cityId: cityId ?? "1",
-                              countryId: countryId ?? "2",
-                              avatar: base64NewImage,
-                              mobile: phoneNumber ??
-                                  "+966${_phoneController.text}",
-                              gender: genderValue,
-                            );
-                      })),
+      bottomNavigationBar: BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
+          builder: (context, state) => state is UpdateProfileLoading
+              ? const Center(child: CircularProgressIndicator.adaptive())
+              : buildSaveButton(
+                  label: "save",
+                  onPressed: () {
+                    context.read<UpdateProfileCubit>().updateMethod(
+                          context: context,
+                          fullName: _nameController.text,
+                          nationalityName: nationalityName,
+                          countryName: countryName,
+                          cityName: cityName,
+                          nationalityId: nationalityId ?? "1",
+                          email: _emailController.text,
+                          cityId: cityId ?? "1",
+                          countryId: countryId ?? "2",
+                          avatar: base64NewImage,
+                          mobile: phoneNumber ?? "+966${_phoneController.text}",
+                          gender: genderValue,
+                        );
+                  })),
       resizeToAvoidBottomInset: false,
       body: pageLoad
           ? BlocBuilder<ProfileCubit, ProfileState>(
@@ -305,65 +310,68 @@ class _UserProfileEditState extends State<UserProfileEdit>
                                   .copyWith(fontSize: 16))),
                       const SizedBox(height: 16),
                       TitleTxt(txt: "nationality_optional".tr),
-                      BlocBuilder<CountryCubit, CountryState>(
+                      BlocBuilder<NationalityCubit, NationalityState>(
                           builder: (context, newState) {
-                        if (newState is CountryLoaded) {
+                        if (newState is NationalityLoaded) {
+                          return Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 24),
+                              child: CustomDropDown<NationalityData>(
+                                  hintData: nationalityName != '' &&
+                                          nationalityName != null
+                                      ? nationalityName!
+                                      : 'برجاء اختيار الجنسية',
+                                  value: nationalityId.toString(),
+                                  items: newState.response!.data!.map(
+                                    (e) {
+                                      return DropdownMenuItem(
+                                          value: e.id.toString(),
+                                          child: Text(
+                                            e.name!,
+                                            style: const TextStyle(
+                                                fontFamily: 'Cairo',
+                                                fontSize: 14),
+                                          ));
+                                    },
+                                  ).toList(),
+                                  onChanged: (val) {
+                                    newState.response!.data!.map((e) {
+                                      if (val.toString() == e.id.toString()) {
+                                        nationalityName = e.name;
+                                        nationalityId = e.id.toString();
+                                      }
+                                    }).toList();
+                                    setState(() {});
+                                  },
+                                  prefixIcon: SvgPicture.asset(
+                                      'assets/images/SVGs/flag.svg',
+                                      height: 24)));
+                        }
+                        return const SizedBox.shrink();
+                      }),
+
+                      ///============country ==============
+                      BlocBuilder<CountryCubit, CountryState>(
+                          builder: (context, countrySate) {
+                        if (countrySate is CountryLoaded) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 10, bottom: 24),
-                                  child: CustomDropDown<Nationailties>(
-                                      hintData:
-                                      nationalityName!=''&& nationalityName!=null?nationalityName! :
-                                          'برجاء اختيار الجنسية',
-                                      value: nationalityId.toString(),
-                                      items: newState
-                                          .response!.data!.nationailties!
-                                          .map(
-                                        (e) {
-                                          return DropdownMenuItem(
-                                              value: e.id.toString(),
-                                              child: Text(
-                                                e.name!,
-                                                style: const TextStyle(
-                                                    fontFamily: 'Cairo',
-                                                    fontSize: 14),
-                                              ));
-                                        },
-                                      ).toList(),
-                                      onChanged: (val) {
-                                        newState
-                                            .response!.data!.nationailties!
-                                            .map((e) {
-                                          if (val.toString() ==
-                                              e.id.toString()) {
-                                            nationalityName = e.name;
-                                            nationalityId = e.id.toString();
-                                          }
-                                        }).toList();
-                                        setState(() {});
-                                      },
-                                      prefixIcon: SvgPicture.asset(
-                                          'assets/images/SVGs/flag.svg',
-                                          height: 24))),
                               TitleTxt(txt: "resident_country".tr),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10, bottom: 24),
+                                padding:
+                                    const EdgeInsets.only(top: 10, bottom: 24),
                                 child: CustomDropDown(
                                     hintData:
-                                        countryName!=null && countryName!=''?countryName! : "قم باختيار الدولة",
+                                        countryName != null && countryName != ''
+                                            ? countryName!
+                                            : "قم باختيار الدولة",
                                     value: countryId,
                                     onChanged: (val) {
                                       debugPrint(val);
                                       countryId = val;
-
-                                      newState.response!.data!.countries!
-                                          .map((e) {
-                                        if (val.toString() ==
-                                            e.id.toString()) {
+                                      countrySate.response!.data!.map((e) {
+                                        if (val.toString() == e.id.toString()) {
                                           countryName = e.name;
                                           cityId = null;
                                           cityName = null;
@@ -374,10 +382,10 @@ class _UserProfileEditState extends State<UserProfileEdit>
                                           .read<CityCubit>()
                                           .getCities(countryId.toString());
                                     },
-                                    items: newState.response!.data!.countries!
-                                        .map((e) => DropdownMenuItem(
+                                    items: countrySate.response?.data
+                                        ?.map((e) => DropdownMenuItem(
                                             value: e.id.toString(),
-                                            child: Text(e.name!,
+                                            child: Text(e.name ?? "",
                                                 style: const TextStyle(
                                                     fontFamily: 'Cairo',
                                                     fontSize: 14))))
@@ -403,18 +411,16 @@ class _UserProfileEditState extends State<UserProfileEdit>
                             children: [
                               TitleTxt(txt: "resident_city".tr),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10, bottom: 24),
+                                padding:
+                                    const EdgeInsets.only(top: 10, bottom: 24),
                                 child: CustomDropDown(
-                                    hintData:
-                                        cityName == '' || cityName == null
-                                            ? "قم باختيار المدينة"
-                                            : cityName!,
+                                    hintData: cityName == '' || cityName == null
+                                        ? "قم باختيار المدينة"
+                                        : cityName!,
                                     value: cityId,
                                     onChanged: (val) {
                                       cityState.response!.data!.map((e) {
-                                        if (val.toString() ==
-                                            e.id.toString()) {
+                                        if (val.toString() == e.id.toString()) {
                                           cityName = e.name;
                                           cityId = val;
                                         }

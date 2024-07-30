@@ -9,13 +9,13 @@ class CityModel {
   final List<CityData>? data;
   final dynamic status;
   final String? message;
-  final List<dynamic>? pagination;
+  // final List<dynamic>? pagination;
 
   CityModel({
     this.data,
     this.status,
     this.message,
-    this.pagination,
+    // this.pagination,
   });
 
   factory CityModel.fromJson(Map<String, dynamic> json) => CityModel(
@@ -25,9 +25,9 @@ class CityModel {
                 json["data"]!.map((x) => CityData.fromJson(x))),
         status: json["status"],
         message: json["message"],
-        pagination: json["pagination"] == null
-            ? []
-            : List<dynamic>.from(json["pagination"]!.map((x) => x)),
+        // pagination: json["pagination"] == null
+        //     ? []
+        //     : List<dynamic>.from(json["pagination"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,9 +36,9 @@ class CityModel {
             : List<dynamic>.from(data!.map((x) => x.toJson())),
         "status": status,
         "message": message,
-        "pagination": pagination == null
-            ? []
-            : List<dynamic>.from(pagination!.map((x) => x)),
+        // "pagination": pagination == null
+        //     ? []
+        //     : List<dynamic>.from(pagination!.map((x) => x)),
       };
 }
 

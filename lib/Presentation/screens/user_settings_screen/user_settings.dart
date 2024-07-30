@@ -3,14 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nasooh/Presentation/widgets/shared.dart';
-
 import '../../../Data/cubit/authentication/delete_account_cubit/delete_account_cubit.dart';
 import '../../../Data/cubit/authentication/delete_account_cubit/delete_account_state.dart';
 import '../../../Data/cubit/settings_cubits/is_notification_cubit/is_notification_cubit.dart';
-// import '../../../app/Style/icons.dart';
 import '../../../app/constants.dart';
 import '../../../app/style/icons.dart';
-import '../../../app/utils/Language/get_language.dart';
 import '../../../app/utils/shared_preference.dart';
 
 class UserSettings extends StatefulWidget {
@@ -34,8 +31,7 @@ class _UserSettingsState extends State<UserSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context: context, txt: "settings".tr),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -87,7 +83,8 @@ class _UserSettingsState extends State<UserSettings> {
                       wordSpacing: 0,
                     )),
                 trailing: Switch(
-                  activeColor: Constants.primaryAppColor,
+                  inactiveThumbColor: Colors.black,
+                  inactiveTrackColor: Colors.grey,
                   value: isNotificationValue!,
                   onChanged: (value) {
                     setState(() {
@@ -112,9 +109,7 @@ class _UserSettingsState extends State<UserSettings> {
                   onTap: () => _showDeleteDialog(context),
                   child: Text("Delete Account".tr,
                       style: Constants.mainTitleFont.copyWith(
-                          letterSpacing: 0,
-                          wordSpacing: 0,
-                          color: Colors.red)),
+                          letterSpacing: 0, wordSpacing: 0, color: Colors.red)),
                 ),
               ),
             ],

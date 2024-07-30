@@ -1,35 +1,35 @@
 PODS:
   - audioplayers_darwin (0.0.1):
     - Flutter
-  - DKImagePickerController/Core (4.3.4):
+  - DKImagePickerController/Core (4.3.9):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
-  - DKImagePickerController/ImageDataManager (4.3.4)
-  - DKImagePickerController/PhotoGallery (4.3.4):
+  - DKImagePickerController/ImageDataManager (4.3.9)
+  - DKImagePickerController/PhotoGallery (4.3.9):
     - DKImagePickerController/Core
     - DKPhotoGallery
-  - DKImagePickerController/Resource (4.3.4)
-  - DKPhotoGallery (0.0.17):
-    - DKPhotoGallery/Core (= 0.0.17)
-    - DKPhotoGallery/Model (= 0.0.17)
-    - DKPhotoGallery/Preview (= 0.0.17)
-    - DKPhotoGallery/Resource (= 0.0.17)
+  - DKImagePickerController/Resource (4.3.9)
+  - DKPhotoGallery (0.0.19):
+    - DKPhotoGallery/Core (= 0.0.19)
+    - DKPhotoGallery/Model (= 0.0.19)
+    - DKPhotoGallery/Preview (= 0.0.19)
+    - DKPhotoGallery/Resource (= 0.0.19)
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Core (0.0.17):
+  - DKPhotoGallery/Core (0.0.19):
     - DKPhotoGallery/Model
     - DKPhotoGallery/Preview
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Model (0.0.17):
+  - DKPhotoGallery/Model (0.0.19):
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Preview (0.0.17):
+  - DKPhotoGallery/Preview (0.0.19):
     - DKPhotoGallery/Model
     - DKPhotoGallery/Resource
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Resource (0.0.17):
+  - DKPhotoGallery/Resource (0.0.19):
     - SDWebImage
     - SwiftyGif
   - file_picker (0.0.1):
@@ -40,10 +40,10 @@ PODS:
   - Firebase/Messaging (10.22.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 10.22.0)
-  - firebase_core (2.27.0):
+  - firebase_core (2.29.0):
     - Firebase/CoreOnly (= 10.22.0)
     - Flutter
-  - firebase_messaging (14.7.19):
+  - firebase_messaging (14.8.1):
     - Firebase/Messaging (= 10.22.0)
     - firebase_core
     - Flutter
@@ -51,9 +51,9 @@ PODS:
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
     - GoogleUtilities/Logger (~> 7.12)
-  - FirebaseCoreInternal (10.23.0):
+  - FirebaseCoreInternal (10.28.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseInstallations (10.23.0):
+  - FirebaseInstallations (10.28.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
@@ -79,34 +79,34 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.13.0):
+  - GoogleUtilities/AppDelegateSwizzler (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Environment (7.13.0):
+  - GoogleUtilities/Environment (7.13.3):
     - GoogleUtilities/Privacy
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.13.0):
+  - GoogleUtilities/Logger (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Network (7.13.0):
+  - GoogleUtilities/Network (7.13.3):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.13.0)":
+  - "GoogleUtilities/NSData+zlib (7.13.3)":
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Privacy (7.13.0)
-  - GoogleUtilities/Reachability (7.13.0):
+  - GoogleUtilities/Privacy (7.13.3)
+  - GoogleUtilities/Reachability (7.13.3):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/UserDefaults (7.13.0):
+  - GoogleUtilities/UserDefaults (7.13.3):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - image_picker_ios (0.0.1):
     - Flutter
-  - MyFatoorah (2.0.143)
+  - MyFatoorah (2.0.147)
   - myfatoorah_flutter (0.0.1):
     - Flutter
     - MyFatoorah (~> 2.0.141)
@@ -124,9 +124,9 @@ PODS:
   - record_darwin (1.0.0):
     - Flutter
     - FlutterMacOS
-  - SDWebImage (5.19.0):
-    - SDWebImage/Core (= 5.19.0)
-  - SDWebImage/Core (5.19.0)
+  - SDWebImage (5.19.2):
+    - SDWebImage/Core (= 5.19.2)
+  - SDWebImage/Core (5.19.2)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -135,9 +135,11 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
-  - SwiftyGif (5.4.4)
-  - Toast (4.1.0)
+  - SwiftyGif (5.4.5)
+  - Toast (4.1.1)
   - url_launcher_ios (0.0.1):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -158,6 +160,7 @@ DEPENDENCIES:
   - smart_auth (from `.symlinks/plugins/smart_auth/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
@@ -212,41 +215,44 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/darwin"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
-  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
-  file_picker: 15fd9539e4eb735dc54bae8c0534a7a9511a03de
+  DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
+  DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
+  file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
-  firebase_core: 100945864b4aedce3cfef0c62ab864858bf013cf
-  firebase_messaging: e65050bf9b187511d80ea3a4de7cf5573d2c7543
+  firebase_core: aaadbddb3cb2ee3792b9804f9dbb63e5f6f7b55c
+  firebase_messaging: 860e28c6ad8b3281276eba922024644b9909c903
   FirebaseCore: 0326ec9b05fbed8f8716cddbf0e36894a13837f7
-  FirebaseCoreInternal: 6a292e6f0bece1243a737e81556e56e5e19282e3
-  FirebaseInstallations: 42d6ead4605d6eafb3b6683674e80e18eb6f2c35
+  FirebaseCoreInternal: 58d07f1362fddeb0feb6a857d1d1d1c5e558e698
+  FirebaseInstallations: 60c1d3bc1beef809fd1ad1189a8057a040c59f2e
   FirebaseMessaging: 9f71037fd9db3376a4caa54e5a3949d1027b4b6e
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
-  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
-  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
+  flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
+  fluttertoast: 9f2f8e81bb5ce18facb9748d7855bf5a756fe3db
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
-  GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
-  image_picker_ios: 99dfe1854b4fa34d0364e74a78448a0151025425
-  MyFatoorah: 9a568e19fde7fe59c9d581bc14c1f9596e2c3204
+  GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
+  image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
+  MyFatoorah: 89e81099aa934baeb19779beb5969d9a5a8c8850
   myfatoorah_flutter: f22cfd019f363b81a76d2d59ac637131cdeb1f89
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   record_darwin: 1f6619f2abac4d1ca91d3eeab038c980d76f1517
-  SDWebImage: 981fd7e860af070920f249fd092420006014c3eb
+  SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
-  SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  Toast: ec33c32b8688982cecc6348adeae667c1b9938da
-  url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
+  url_launcher_ios: 6116280ddcfe98ab8820085d8d76ae7449447586
+  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
 
-PODFILE CHECKSUM: c59371d64fbfdd15f60352e84a43f863cc9f7fc3
+PODFILE CHECKSUM: fbc7304b7d8244e18448ae5523236ee93b09254d
 
 COCOAPODS: 1.15.2

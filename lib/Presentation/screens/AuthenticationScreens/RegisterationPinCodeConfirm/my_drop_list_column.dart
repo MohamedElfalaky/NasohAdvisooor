@@ -7,6 +7,8 @@ import 'package:nasooh/Data/cubit/authentication/country_cubit/country_state.dar
 import '../../../../Data/cubit/authentication/city_cubit/city_cubit.dart';
 import '../../../../Data/cubit/authentication/city_cubit/city_state.dart';
 import '../../../../Data/cubit/authentication/country_cubit/country_cubit.dart';
+import '../../../../Data/cubit/authentication/nationality_cubit/nationality_cubit.dart';
+import '../../../../Data/cubit/authentication/nationality_cubit/nationality_state.dart';
 import '../../../../app/constants.dart';
 
 String? inputCountry;
@@ -110,12 +112,13 @@ class _NationalityAndCountryWidgetState
         TitleTxt(
           txt: "nationality_optional".tr,
         ),
-        BlocBuilder<CountryCubit, CountryState>(builder: (context, state) {
-          if (state is CountryLoading) {
+        BlocBuilder<NationalityCubit, NationalityState>(
+            builder: (context, state) {
+          if (state is NationalityLoading) {
             return const SizedBox(
                 width: double.infinity,
                 child: Center(child: CircularProgressIndicator.adaptive()));
-          } else if (state is CountryLoaded) {
+          } else if (state is NationalityLoaded) {
             // print('nationality loaded');
             return Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -125,7 +128,7 @@ class _NationalityAndCountryWidgetState
                     child: CustomDropDown(
                         hintData: "سعودي",
                         value: nationalityValue,
-                        items: state.response!.data!.nationailties!
+                        items: state.response!.data!
                             .map(
                               (e) => DropdownMenuItem(
                                   value: e.id.toString(), child: Text(e.name!)),
@@ -141,6 +144,21 @@ class _NationalityAndCountryWidgetState
                           'assets/images/SVGs/flag.svg',
                           height: 24,
                         ))),
+              ],
+            );
+          }
+          return const Center(child: SizedBox.shrink());
+        }),
+        BlocBuilder<CountryCubit, CountryState>(builder: (context, state) {
+          if (state is CountryLoading) {
+            return const SizedBox(
+                width: double.infinity,
+                child: Center(child: CircularProgressIndicator.adaptive()));
+          } else if (state is CountryLoaded) {
+            // print('nationality loaded');
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
                 TitleTxt(
                   txt: "resident_country".tr,
                 ),
@@ -157,7 +175,7 @@ class _NationalityAndCountryWidgetState
                           context.read<CityCubit>().getCities(inputCountry!);
                         }
                       },
-                      items: state.response!.data!.countries!
+                      items: state.response!.data!
                           .map((e) => DropdownMenuItem(
                               value: e.id.toString(), child: Text(e.name!)))
                           .toList(),

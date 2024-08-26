@@ -395,44 +395,93 @@ class _ChatScreenState extends State<ChatScreen> {
           builder: (context, state3) {
             return GestureDetector(
               onTap: () async {
+                // Trim the message text to remove any leading or trailing whitespace
+                String trimmedMessage = chatController.text.trim();
+
+                // Check if the message is empty after trimming
+                if (trimmedMessage.isEmpty && pickedFile == null && voiceFile == null) {
+                  MyApplication.showToastView(message: "يجب ادخال رسالة");
+                  return;
+                }
+
                 if (state2 is ShowAdviceLoading || state3 is SendChatLoading) {
                   return;
                 }
+
                 if (pickedFile != null) {
                   var fileLength = await pickedFile!.length();
                   debugPrint('file length is $fileLength');
-                  if (fileLength >= 5242880 == true) {
-                    MyApplication.showToastView(
-                        message: ' 5 MB لا يمكن ان يتعدي الملف');
+                  if (fileLength >= 5242880) {
+                    MyApplication.showToastView(message: ' 5 MB لا يمكن ان يتعدي الملف');
                     return;
                   } else {
                     context.read<SendChatCubit>().sendChatFunction(
-                        file: pickedFile,
-                        msg: chatController.text,
-                        adviceId: widget.adviceId.toString());
-                    setState(() {
-                      pickedFile = null;
-                    });
+                      file: pickedFile,
+                      msg: trimmedMessage,
+                      adviceId:widget.adviceId.toString(),
+                    );
+                    pickedFile = null;
                   }
                 } else if (voiceFile != null) {
                   log(voiceSelected?.path ?? "", name: "the voice is");
-                  // log(voiceSelected?.path??""  , name: "the voice is");
                   context.read<SendChatCubit>().sendChatFunction(
-                      file: voiceSelected,
-                      msg: chatController.text,
-                      adviceId: widget.adviceId.toString());
+                    file: voiceSelected,
+                    msg: trimmedMessage,
+                    adviceId:widget.adviceId.toString(),
+                  );
                   setState(() {
                     voiceSelected = null;
                     voiceFile = null;
                   });
-                } else if (chatController.text.isNotEmpty) {
+                } else if (trimmedMessage.isNotEmpty) {
                   context.read<SendChatCubit>().sendChatFunction(
-                      file: pickedFile,
-                      msg: chatController.text,
-                      adviceId: widget.adviceId.toString());
+                    file: pickedFile,
+                    msg: trimmedMessage,
+                    adviceId:widget.adviceId.toString(),
+                  );
                   log("printed");
                 }
               },
+
+              // onTap: () async {
+              //   if (state2 is ShowAdviceLoading || state3 is SendChatLoading) {
+              //     return;
+              //   }
+              //   if (pickedFile != null) {
+              //     var fileLength = await pickedFile!.length();
+              //     debugPrint('file length is $fileLength');
+              //     if (fileLength >= 5242880 == true) {
+              //       MyApplication.showToastView(
+              //           message: ' 5 MB لا يمكن ان يتعدي الملف');
+              //       return;
+              //     } else {
+              //       context.read<SendChatCubit>().sendChatFunction(
+              //           file: pickedFile,
+              //           msg: chatController.text,
+              //           adviceId: widget.adviceId.toString());
+              //       setState(() {
+              //         pickedFile = null;
+              //       });
+              //     }
+              //   } else if (voiceFile != null) {
+              //     log(voiceSelected?.path ?? "", name: "the voice is");
+              //     // log(voiceSelected?.path??""  , name: "the voice is");
+              //     context.read<SendChatCubit>().sendChatFunction(
+              //         file: voiceSelected,
+              //         msg: chatController.text,
+              //         adviceId: widget.adviceId.toString());
+              //     setState(() {
+              //       voiceSelected = null;
+              //       voiceFile = null;
+              //     });
+              //   } else if (chatController.text.isNotEmpty) {
+              //     context.read<SendChatCubit>().sendChatFunction(
+              //         file: pickedFile,
+              //         msg: chatController.text,
+              //         adviceId: widget.adviceId.toString());
+              //     log("printed");
+              //   }
+              // },
               child: Container(
                   margin: const EdgeInsetsDirectional.only(start: 8),
                   padding: const EdgeInsets.all(10),

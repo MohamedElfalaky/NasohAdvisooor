@@ -188,8 +188,8 @@ class _ConfirmAdviseScreenState extends State<ConfirmAdviseScreen> {
                         return "Price Needed".tr;
                       }
                       final price = double.tryParse(value);
-                      if (price == null || price <= 1) {
-                        return "الرجاء ادخال رقم صحيح";
+                      if (price == null || price < 30) {
+                        return "الرجاء ادخال رقم صحيح لا يقل عن ٣٠ ريال";
                       }
                       return null;
                     },
